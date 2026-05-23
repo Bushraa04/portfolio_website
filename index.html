@@ -472,7 +472,7 @@
         <div class="design-card-body"><div class="design-card-title">Instagram Art Page — @that_scribbler</div><div class="design-card-desc">Personal creative page — 185 posts, 2,278 followers — journals, coffee art & digital creativity.</div></div>
       </div>
 
-      <div class="design-card" data-title="Qala — Documentary Film" data-video="qala.MP4" onclick="openLb(this)">
+      <div class="design-card" data-title="Qala — Documentary Film" data-video="https://drive.google.com/file/d/1tpt_CYj7OO_Y7oO64mjH3FnNWSoUU73m/preview" onclick="openLb(this)">
         <div class="design-card-thumb" style="background:linear-gradient(135deg,#2c1810,#8b4513,#d4956a);">
           <span class="thumb-emoji">🎬</span>
           <div class="zoom-hint"><div class="zoom-hint-inner">▶ Watch</div></div>
@@ -483,7 +483,7 @@
         </div>
       </div>
 
-      <div class="design-card" data-title="The Rise of Brewing Culture in New Delhi" data-video="brewing-culture.MP4" onclick="openLb(this)">
+      <div class="design-card" data-title="The Rise of Brewing Culture in New Delhi" data-video="https://drive.google.com/file/d/17_vVG1zNFR806pgz2SeZObS5v8PKb50c/preview" onclick="openLb(this)">
         <div class="design-card-thumb" style="background:linear-gradient(135deg,#1a0a00,#6b3a2a,#c4966a);">
           <span class="thumb-emoji">☕</span>
           <div class="zoom-hint"><div class="zoom-hint-inner">▶ Watch</div></div>
@@ -494,7 +494,7 @@
         </div>
       </div>
 
-      <div class="design-card" data-title="Stay Alert, Stay Safe — Road Safety Ad" data-video="road-safety-ad.MP4" onclick="openLb(this)">
+      <div class="design-card" data-title="Stay Alert, Stay Safe — Road Safety Ad" data-video="https://drive.google.com/file/d/1QCqM6OqtOWNzYJk9ZsqVGcCRwC6aAW-h/preview" onclick="openLb(this)">
         <div class="design-card-thumb" style="background:linear-gradient(135deg,#1a1a2e,#e63946,#f4a261);">
           <span class="thumb-emoji">🚦</span>
           <div class="zoom-hint"><div class="zoom-hint-inner">▶ Watch</div></div>
@@ -972,16 +972,18 @@ function openLb(card){
   const emoji=thumb?[...thumb.childNodes].find(n=>n.nodeType===3)?.textContent.trim()||'🖼️':'🖼️';
 
   if(video&&video.trim()){
-    lbContent.innerHTML=`
-      <div style="max-width:90vw;max-height:90vh;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.6);">
-        <div style="padding:.7rem 1.2rem;background:linear-gradient(135deg,#3d3028,#6b4c3b);color:white;font-family:'Caveat',cursive;font-size:1.2rem;display:flex;align-items:center;gap:.6rem;">
-          <span>🎬</span> ${title}
-        </div>
-        <video controls autoplay style="max-width:85vw;max-height:80vh;display:block;background:#000;" src="${video}">
-          Your browser does not support the video tag.
-        </video>
-      </div>`;
-  } else if(insta&&insta.trim()){
+  const isEmbed = video.includes('drive.google.com') || video.includes('youtube.com');
+  lbContent.innerHTML=`
+    <div style="display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.7);width:min(860px,90vw);">
+      <div style="padding:.7rem 1.2rem;background:linear-gradient(135deg,#3d3028,#6b4c3b);color:white;font-family:'Caveat',cursive;font-size:1.2rem;display:flex;align-items:center;gap:.6rem;flex-shrink:0;">
+        <span>🎬</span> ${title}
+      </div>
+      ${isEmbed
+        ? `<iframe src="${video}" style="width:100%;height:70vh;border:none;" allowfullscreen allow="autoplay"></iframe>`
+        : `<video controls autoplay style="width:100%;max-height:80vh;display:block;background:#000;" src="${video}">Your browser does not support the video tag.</video>`
+      }
+    </div>`;
+} else if(insta&&insta.trim()){
     lbContent.innerHTML=`
       <div style="width:min(480px,90vw);height:85vh;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.4);">
         <div style="padding:.8rem 1.2rem;background:linear-gradient(135deg,#f9c7e3,#c47fd4,#f4a261);color:white;font-family:'Caveat',cursive;font-size:1.3rem;display:flex;align-items:center;gap:.6rem;">
